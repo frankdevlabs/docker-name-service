@@ -26,9 +26,15 @@ func getNewDockerName(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, r)
 }
 
+// handleHealthcheck returns a status of the service.
+func handleHealthcheck(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, gin.H{"status": "ok"})
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/name", getNewDockerName)
+	router.GET("/healthz", handleHealthcheck)
 
 	router.Run("localhost:8080")
 }
